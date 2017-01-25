@@ -16,6 +16,7 @@
 #
 import webapp2
 import caesar
+import cgi
 
 def pageSetup(enc_content):
     up_content = '''
@@ -50,7 +51,8 @@ class MainHandler(webapp2.RequestHandler):
 
     def post(self):
         enc_content = caesar.encrypt(self.request.get("content"), self.request.get("code"))
-        the_content = pageSetup(enc_content)
+        esc_content = cgi.escape(enc_content)
+        the_content = pageSetup(esc_content)
         self.response.write(the_content)
 
 
