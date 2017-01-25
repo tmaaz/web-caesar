@@ -15,10 +15,32 @@
 # limitations under the License.
 #
 import webapp2
+import caesar
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        content = '''
+            <html>
+                <head>
+                    <title>STLCC - LC101 - Web Caesar</title>
+                </head>
+                <body>
+                    <h2>Please enter some text for conversion:</h2>
+                    <form method="post">
+                        <textarea name="content" style="height: 125px; width: 350px;"></textarea>
+                        <br />
+                        <h5>Please enter your encryption code:</h5>
+                        <input type="text" name="code"/>
+                        <br />
+                        <input type="submit" value="Submit">
+                    </form>
+                </body>
+            </html>
+        '''
+        enc_content = caesar.encrypt(content, code)
+
+        self.response.write(enc_content)
+
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
